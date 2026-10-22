@@ -1,0 +1,121 @@
+var SRC = {
+  aad: ['American Academy of Dermatology: how to select sunscreen', 'https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-select-sunscreen'],
+  nhs: ['NHS: acne', 'https://www.nhs.uk/conditions/acne/'],
+  ml: ['The Medical Letter (2016): adapalene 0.1% gel available without a prescription', 'https://secure.medicalletter.org/w1504b'],
+  cdc: ['CDC: about sleep', 'https://www.cdc.gov/sleep/about/index.html'],
+  caf: ['Drake et al. (2013), Journal of Clinical Sleep Medicine: caffeine taken 0, 3 or 6 hours before bed', 'https://pmc.ncbi.nlm.nih.gov/articles/PMC3805807/'],
+  temp: ['Sleep Foundation: the best temperature for sleep', 'https://www.sleepfoundation.org/bedroom-environment/best-temperature-for-sleep'],
+  ki: ['Karolinska Institutet: sleep-deprived faces were rated less attractive (Axelsson et al., BMJ 2010)', 'https://news.ki.se/a-good-nights-sleep-the-key-to-being-attractive'],
+  jsr: ['Journal of Sport Rehabilitation (2022): corrective exercise for forward head posture', 'https://pubmed.ncbi.nlm.nih.gov/35172275/'],
+  adip: ['Coetzee et al. (2009), Perception: facial adiposity as a cue to health and attractiveness', 'https://research-repository.st-andrews.ac.uk/handle/10023/3131'],
+  sf: ['BBC Science Focus: mewing', 'https://www.sciencefocus.com/the-human-body/mewing'],
+  asps: ['American Society of Plastic Surgeons: consultation checklist', 'https://plasticsurgery.org/news/articles/your-consultation-checklist-essential-questions-to-ask-before-your-plastic-surgery-procedure']
+};
+var GUIDES = [
+  { id: 'skin', free: true, tag: ['Skin', 'Кожа'], min: 7, ic: 'M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z', hue: 28,
+    t: ['Skin basics: what dermatologists actually recommend', 'Основы ухода за кожей: что действительно советуют дерматологи'],
+    s: ['Sunscreen, cleansing, retinoids, spots and when to see a doctor, ranked by how well each step is backed.', 'Солнцезащита, очищение, ретиноиды, высыпания и когда идти к врачу, по степени обоснованности каждого шага.'],
+    key: [['Daily broad-spectrum sunscreen with SPF 30 or higher is the clearest step dermatologists recommend. Outdoors, reapply about every two hours.', 'Ежедневный крем широкого спектра с SPF 30 и выше это самый понятный шаг, который советуют дерматологи. На улице повторяйте примерно каждые два часа.'],
+      ['Adapalene 0.1% gel (a retinoid) is sold without a prescription in the US since 2016. It treats acne and is the step most people never try.', 'Адапален 0,1% (ретиноид) в США продаётся без рецепта с 2016 года. Он лечит акне, и это шаг, до которого большинство так и не доходит.'],
+      ['Wash twice a day with a gentle cleanser. Scrubbing and picking make skin worse.', 'Умывайтесь два раза в день мягким средством. Скрабы и выдавливание делают кожу хуже.'],
+      ['Compare photos taken in the same light, not mirror impressions. (GlowLab note)', 'Сравнивайте фото при одинаковом свете, а не впечатление в зеркале. (Заметка GlowLab)']],
+    sec: [
+      { h: ['What the evidence supports', 'Что подтверждено'], type: 'tiers', rows: [
+        [['Broad-spectrum sunscreen, SPF 30+', 'Крем широкого спектра, SPF 30+'], ['Recommended', 'Рекомендуется'], ['Water resistant if you sweat or swim (label: 40 or 80 minutes). Reapply about every two hours outdoors and after swimming or sweating.', 'Водостойкий, если вы потеете или плаваете (на упаковке 40 или 80 минут). На улице повторяйте примерно каждые два часа и после плавания или пота.'], 'aad'],
+        [['Gentle cleanser twice a day, remove make-up at night', 'Мягкое средство два раза в день, макияж снимать на ночь'], ['Recommended', 'Рекомендуется'], ['Choose non-comedogenic products.', 'Выбирайте некомедогенные продукты.'], 'nhs'],
+        [['Adapalene 0.1% gel for acne', 'Адапален 0,1% при акне'], ['Evidence-based', 'Доказано'], ['A retinoid that is available over the counter in the US. Expect dryness and some peeling in the first weeks. Not for use in pregnancy; check the label and ask a pharmacist.', 'Ретиноид, который в США продаётся без рецепта. В первые недели ждите сухость и шелушение. Нельзя при беременности; читайте инструкцию и спросите фармацевта.'], 'ml'],
+        [['Salicylic acid or benzoyl peroxide for mild acne', 'Салициловая кислота или бензоилпероксид при лёгком акне'], ['Ask a pharmacist', 'Спросите фармацевта'], ['Over-the-counter options exist; a pharmacist can match one to your skin.', 'Есть безрецептурные средства; фармацевт поможет подобрать под вашу кожу.'], 'nhs'],
+        [['Scrubbing, squeezing or picking spots', 'Скрабы, выдавливание и ковыряние высыпаний'], ['Avoid', 'Избегать'], ['Irritates skin, can worsen acne and cause scarring.', 'Раздражает кожу, может ухудшить акне и оставить рубцы.'], 'nhs']] },
+      { h: ['A routine that works', 'Схема, которая работает'], type: 'steps', items: [
+        ['Morning: gentle cleanser, light moisturiser, then sunscreen SPF 30+ as the last step.', 'Утро: мягкое умывание, лёгкий увлажняющий крем, затем SPF 30+ последним слоем.'],
+        ['Evening: wash, then a pea-sized amount of adapalene on dry skin, then moisturiser.', 'Вечер: умыться, затем адапален размером с горошину на сухую кожу, затем увлажняющий крем.'],
+        ['Start the retinoid every second or third night and build up as your skin allows. (GlowLab note)', 'Начинайте ретиноид через 2–3 вечера и учащайте, когда кожа привыкнет. (Заметка GlowLab)'],
+        ['Use sunscreen every day while on a retinoid: it makes skin more sensitive to the sun.', 'При ретиноиде SPF нужен каждый день: кожа становится чувствительнее к солнцу.'],
+        ['Change one product at a time and give it 8 to 12 weeks before judging. (GlowLab note)', 'Меняйте по одному средству и оценивайте не раньше чем через 8–12 недель. (Заметка GlowLab)']] },
+      { h: ['Questions', 'Вопросы'], type: 'faq', items: [
+        [['Can I pop a spot?', 'Можно ли выдавить прыщ?'], ['Health services advise against it because it can cause scarring.', 'Медицинские службы советуют этого не делать: могут остаться рубцы.']],
+        [['My skin got worse after starting a retinoid. Is that normal?', 'После ретиноида кожа стала хуже. Это нормально?'], ['Dryness and irritation are common early on. Use it less often and keep moisturising; if it stays bad, stop and ask a pharmacist or doctor.', 'Сухость и раздражение в начале частое явление. Наносите реже и увлажняйте; если не проходит, прекратите и спросите фармацевта или врача.']],
+        [['When should I see a doctor?', 'Когда идти к врачу?'], ['If self-treatment is not helping, spots are deep or painful, you see scarring or signs of infection, or acne affects your mood.', 'Если самолечение не помогает, высыпания глубокие или болезненные, появляются рубцы или признаки инфекции, либо акне влияет на настроение.']]] }],
+    refs: ['aad', 'nhs', 'ml'] },
+  { id: 'sleep', tag: ['Habits', 'Привычки'], min: 6, ic: 'M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z', hue: 232,
+    t: ['Sleep: the habit that shows on your face', 'Сон: привычка, которая видна на лице'],
+    s: ['How much you need, what the studies found about faces, and the small changes that help.', 'Сколько нужно спать, что показали исследования лиц и какие небольшие изменения помогают.'],
+    key: [['In a BMJ study, the same people were rated less attractive and less healthy-looking after a night of short sleep.', 'В исследовании BMJ одних и тех же людей после недосыпа оценивали как менее привлекательных и менее здоровых на вид.'],
+      ['Adults aged 18 to 60 need 7 or more hours per night, at regular times.', 'Взрослым от 18 до 60 лет нужно 7 часов сна и больше, в одно и то же время.'],
+      ['Caffeine taken even 6 hours before bed cut sleep by more than an hour in a controlled study.', 'Кофеин даже за 6 часов до сна сокращал сон больше чем на час в контролируемом исследовании.']],
+    sec: [
+      { h: ['What the studies found', 'Что показали исследования'], type: 'tiers', rows: [
+        [['Short sleep and looks', 'Недосып и внешность'], ['Measured', 'Измерено'], ['Photos of the same people after normal sleep and after sleep deprivation: the sleep-deprived photos were rated less attractive, less healthy and more tired.', 'Фото одних и тех же людей после нормального сна и после недосыпа: фото после недосыпа оценивали как менее привлекательные, менее здоровые и более усталые.'], 'ki'],
+        [['Caffeine timing', 'Время кофеина'], ['Measured', 'Измерено'], ['400 mg of caffeine (about 2 to 3 strong coffees) at 0, 3 and 6 hours before bed all disrupted sleep; at 6 hours it still reduced total sleep by over an hour.', '400 мг кофеина (примерно 2–3 крепких кофе) за 0, 3 и 6 часов до сна мешали сну во всех случаях; даже за 6 часов сон сокращался больше чем на час.'], 'caf'],
+        [['Bedroom temperature', 'Температура в спальне'], ['Guideline', 'Рекомендация'], ['A cool room, roughly 18 °C (65 °F), suits most people.', 'Прохладная комната, около 18 °C, подходит большинству.'], 'temp'],
+        [['Sleep duration', 'Длительность сна'], ['Guideline', 'Рекомендация'], ['7 or more hours for adults aged 18 to 60.', '7 часов и больше для взрослых 18–60 лет.'], 'cdc']] },
+      { h: ['A plan for the next two weeks', 'План на две недели'], type: 'steps', items: [
+        ['Fix your wake-up time first, every day including weekends. Bedtime follows. (GlowLab note)', 'Сначала зафиксируйте время подъёма, каждый день, включая выходные. Время отбоя подтянется само. (Заметка GlowLab)'],
+        ['Last coffee, tea or energy drink at least 6 hours before bed.', 'Последний кофе, чай или энергетик минимум за 6 часов до сна.'],
+        ['Room cool (about 18 °C), dark and quiet.', 'В комнате прохладно (около 18 °C), темно и тихо.'],
+        ['Devices off at least 30 minutes before bed; avoid large meals and alcohol late.', 'Устройства выключить минимум за 30 минут до сна; поздно не наедаться и не пить алкоголь.'],
+        ['Take your scan photo in the morning after a full night, at the same time each time, so sleep does not skew the comparison. (GlowLab note)', 'Делайте фото для скана утром после полноценного сна и всегда в одно время, чтобы сон не искажал сравнение. (Заметка GlowLab)']] },
+      { h: ['Questions', 'Вопросы'], type: 'faq', items: [
+        [['Is 6 hours enough?', 'Хватит ли 6 часов?'], ['The CDC guidance for ages 18 to 60 is 7 or more hours.', 'Рекомендация CDC для возраста 18-60 лет: 7 часов и больше.']],
+        [['Can I catch up at the weekend?', 'Можно ли отоспаться в выходные?'], ['Irregular times are part of the problem; a steady schedule is the main recommendation.', 'Нерегулярный режим сам по себе часть проблемы; главная рекомендация это стабильное время сна.']]] }],
+    refs: ['ki', 'caf', 'temp', 'cdc'] },
+  { id: 'posture', tag: ['Habits', 'Привычки'], min: 6, ic: 'M12 4a2 2 0 1 0 0 4 2 2 0 0 0 0-4zM12 9v6M8 21l4-6 4 6', hue: 160,
+    t: ['Neck and posture: four exercises with evidence', 'Шея и осанка: четыре упражнения с доказательствами'],
+    s: ['What a review of randomised trials found for forward head posture, and how posture changes your side profile.', 'Что показал обзор рандомизированных исследований при наклонённой вперёд голове и как осанка меняет профиль.'],
+    key: [['A review of three randomised trials in young adults found four exercises useful for forward head posture.', 'Обзор трёх рандомизированных исследований у молодых людей показал пользу четырёх упражнений при наклонённой вперёд голове.'],
+      ['Forward head posture blurs the line between chin and neck in a side view. Posture is the part of the profile you can change. (GlowLab note)', 'Голова, выдвинутая вперёд, размывает линию между подбородком и шеей в профиль. Осанка это та часть профиля, которую можно изменить. (Заметка GlowLab)'],
+      ['The evidence concerns posture, not bone structure.', 'Данные касаются осанки, а не строения кости.']],
+    sec: [
+      { h: ['The four exercises', 'Четыре упражнения'], type: 'steps', items: [
+        ['Neck stretch (sternocleidomastoid): tilt the ear away and turn slightly, hold gently.', 'Растяжка шеи (грудино-ключично-сосцевидная мышца): наклоните ухо в сторону и слегка поверните голову, держите мягко.'],
+        ['Chest stretch (pectoral): forearm on a door frame, step through until you feel the stretch.', 'Растяжка груди (грудные мышцы): предплечье на дверной косяк, шагните вперёд до ощущения растяжения.'],
+        ['Chin tuck, lying on your back: draw the chin straight back, making a "double chin", without lifting the head.', 'Подтягивание подбородка лёжа на спине: втяните подбородок назад, как будто делаете «второй подбородок», голову не отрывайте.'],
+        ['Shoulder-blade retraction: squeeze the shoulder blades back and down, then release.', 'Сведение лопаток: сведите лопатки назад и вниз, затем расслабьте.']] },
+      { h: ['Everyday fixes', 'Что поменять в течение дня'], type: 'steps', items: [
+        ['Raise the phone to eye level instead of looking down at it. (GlowLab note)', 'Поднимайте телефон к уровню глаз, а не смотрите вниз. (Заметка GlowLab)'],
+        ['Top of the monitor at or slightly below eye level. (GlowLab note)', 'Верх монитора на уровне глаз или чуть ниже. (Заметка GlowLab)'],
+        ['Short posture breaks every 30 to 45 minutes of sitting. (GlowLab note)', 'Короткие перерывы каждые 30–45 минут сидения. (Заметка GlowLab)'],
+        ['For profile photos, keep the head level with eye and ear on one line: a raised or dropped chin moves every angle. (GlowLab note)', 'Для фото в профиль держите голову ровно, глаз и ухо на одной линии: поднятый или опущенный подбородок сдвигает все углы. (Заметка GlowLab)']] },
+      { h: ['Questions', 'Вопросы'], type: 'faq', items: [[['Will this change my jawline?', 'Изменит ли это линию челюсти?'], ['The studies measured posture, not bone. Posture can change how the head sits in a photo.', 'Исследования измеряли осанку, а не кость. Осанка может менять положение головы на фото.']], [['What if it hurts?', 'Что если больно?'], ['Stop and ask a physiotherapist or doctor. The reviewed studies were in people without musculoskeletal problems.', 'Остановитесь и спросите физиотерапевта или врача. В обзоре были люди без проблем с опорно-двигательным аппаратом.']]] }],
+    refs: ['jsr'] },
+  { id: 'jaw', tag: ['Structure', 'Строение'], min: 7, ic: 'M5 9c0 7 3 10 7 10s7-3 7-10M8 9h8', hue: 8,
+    t: ['Jaw and chin: what actually changes them', 'Челюсть и подбородок: что на самом деле их меняет'],
+    s: ['Body fat, grooming and posture versus mewing and chewing hacks, and the professional options.', 'Жир, уход и осанка против мьюинга и «жвачек», а также варианты у специалистов.'],
+    key: [['Facial fat is the biggest soft-tissue factor you control. In a study, people judged weight from faces, and lower facial adiposity was linked to better perceived health and attractiveness.', 'Жир на лице это главный фактор мягких тканей, на который вы влияете. В исследовании люди оценивали вес по лицу, а меньшая «полнота» лица связана с более здоровым и привлекательным видом.'],
+      ['No rigorous studies show that tongue-posture techniques such as mewing change an adult jaw.', 'Строгих исследований, показывающих, что приёмы положения языка вроде мьюинга меняют челюсть взрослого, нет.'],
+      ['Bone changes in adults come only from orthodontic or surgical treatment.', 'Кость у взрослых меняется только ортодонтическим или хирургическим лечением.']],
+    sec: [
+      { h: ['What can change and how', 'Что можно изменить и как'], type: 'tiers', rows: [
+        [['Facial fat', 'Жир на лице'], ['Changeable', 'Меняется'], ['Comes down with overall body fat; you cannot spot-reduce the face. A slow, steady loss shows on the jawline first for many people. (GlowLab note on the last part)', 'Уходит вместе с общим жиром тела; локально «сжечь» лицо нельзя. У многих первой проявляется линия челюсти. (Последнее: заметка GlowLab)'], 'adip'],
+        [['Puffiness', 'Отёчность'], ['Changeable', 'Меняется'], ['Short sleep, alcohol and salty late meals make the face look puffier the next morning. (GlowLab note)', 'Недосып, алкоголь и солёная еда на ночь делают лицо отёчнее на следующее утро. (Заметка GlowLab)'], ''],
+        [['Beard and haircut', 'Борода и стрижка'], ['Changeable', 'Меняется'], ['A beard kept fuller at the jaw angle and chin and short on the cheeks sharpens a soft jawline; sideburns and hair volume change how wide the lower face looks. (GlowLab note)', 'Борода, гуще на углах челюсти и подбородке и короче на щеках, делает мягкую линию челюсти чётче; бакенбарды и объём волос меняют, насколько широкой выглядит нижняя часть лица. (Заметка GlowLab)'], ''],
+        [['Mewing, jaw trainers, hard gum', 'Мьюинг, тренажёры, жёсткая жвачка'], ['No evidence', 'Нет данных'], ['No rigorous evidence for bone change; heavy chewing can strain the jaw joint.', 'Нет строгих данных об изменении кости; сильное жевание может перегрузить челюстной сустав.'], 'sf'],
+        [['Orthodontics, jaw surgery, chin implant, fillers', 'Ортодонтия, операция на челюсти, имплант подбородка, филлеры'], ['Professional', 'У специалиста'], ['These do change structure or contour, with real costs, risks and recovery. See the professionals guide.', 'Это действительно меняет строение или контур, но с реальными затратами, рисками и восстановлением. См. гид о специалистах.'], '']] },
+      { h: ['Where to start', 'С чего начать'], type: 'steps', items: [
+        ['Measure your profile photo now, in the same light and pose you will use later.', 'Снимите и измерьте профиль сейчас, при том же свете и позе, что будете использовать дальше.'],
+        ['If you carry extra weight, a slow loss is the single change most likely to show on your jawline. (GlowLab note)', 'Если есть лишний вес, медленное снижение это изменение, которое вероятнее всего проявится на челюсти. (Заметка GlowLab)'],
+        ['Work on posture (see the posture guide) and grooming at the same time.', 'Параллельно работайте над осанкой (гид про осанку) и уходом.'],
+        ['Bite or jaw concerns: see an orthodontist or dentist, not a forum.', 'Вопросы о прикусе или челюсти: к ортодонту или стоматологу, а не на форум.']] },
+      { h: ['Questions', 'Вопросы'], type: 'faq', items: [[['Does mewing work?', 'Работает ли мьюинг?'], ['A dentist quoted by BBC Science Focus says rigorous studies of its effectiveness are lacking.', 'Стоматолог в материале BBC Science Focus говорит, что строгих исследований его эффективности нет.']],
+        [['Why does my jaw look different in each photo?', 'Почему челюсть на каждом фото разная?'], ['Head tilt, lens distance and light change jaw angles a lot. Compare only photos taken the same way. (GlowLab note)', 'Наклон головы, расстояние до камеры и свет сильно меняют углы. Сравнивайте только фото, снятые одинаково. (Заметка GlowLab)']]] }],
+    refs: ['adip', 'sf'] },
+  { id: 'pro', tag: ['Structure', 'Строение'], min: 7, ic: 'M5 20V8l7-4 7 4v12M9 20v-6h6v6', hue: 190,
+    t: ['Beyond habits: grooming, teeth and professionals', 'За пределами привычек: уход, зубы и специалисты'],
+    s: ['The high-impact grooming steps, and how to choose and question a practitioner.', 'Самые заметные шаги по уходу и как выбрать специалиста и что у него спросить.'],
+    key: [['Hair, brows, beard and teeth change how a face reads with low risk and are reversible. (GlowLab note)', 'Волосы, брови, борода и зубы меняют восприятие лица с низким риском и обратимо. (Заметка GlowLab)'],
+      ['Procedures carry real risk. Check certification, ask about complications and recovery, and see before and after photos.', 'У процедур риски реальные. Проверьте сертификацию, спросите об осложнениях и восстановлении, посмотрите фото до и после.'],
+      ['If appearance worries are taking over your life, talk to a doctor or psychologist. (GlowLab note)', 'Если переживания о внешности занимают слишком много места, поговорите с врачом или психологом. (Заметка GlowLab)']],
+    sec: [
+      { h: ['Low-risk, high-impact', 'Низкий риск, заметный эффект'], type: 'steps', items: [
+        ['Haircut: ask the barber for a cut that adds height on top if your face is round or wide, and less volume at the sides. Show photos. (GlowLab note)', 'Стрижка: при круглом или широком лице просите объём сверху и меньше по бокам. Показывайте фото. (Заметка GlowLab)'],
+        ['Brows: tidy only the stray hairs between and under the brows; do not thin the shape. (GlowLab note)', 'Брови: убирайте только лишние волоски между и под бровями; форму не прореживайте. (Заметка GlowLab)'],
+        ['Beard: keep the neckline about two fingers above the Adam\'s apple and the cheek line clean. (GlowLab note)', 'Борода: линию на шее держите примерно на два пальца выше кадыка, линию на щеках чистой. (Заметка GlowLab)'],
+        ['Teeth: a dentist can advise on whitening and an orthodontist on alignment; both change a smile more than most skincare. (GlowLab note)', 'Зубы: стоматолог подскажет про отбеливание, ортодонт про выравнивание; это меняет улыбку сильнее, чем большинство ухода. (Заметка GlowLab)']] },
+      { h: ['Before any procedure', 'Перед любой процедурой'], type: 'steps', items: [
+        ['Start with the low-risk habits and give them a few months.', 'Начните с безопасных привычек и дайте им несколько месяцев.'],
+        ['Choose a board-certified, licensed practitioner and check where the procedure will be done.', 'Выберите сертифицированного лицензированного специалиста и уточните, где будет проходить процедура.'],
+        ['Ask: how many of these have you done, what are the common complications, what does recovery look like, and what happens if I need a revision?', 'Спросите: сколько таких процедур вы сделали, какие частые осложнения, как проходит восстановление и что будет, если понадобится коррекция?'],
+        ['Ask to see before and after photos of patients similar to you.', 'Попросите фото до и после пациентов, похожих на вас.'],
+        ['Do not use unprescribed drugs or unproven "hacks" for bone or face structure.', 'Не используйте препараты без назначения и непроверенные «приёмы» для кости и строения лица.']] }],
+    refs: ['asps'] }
+];

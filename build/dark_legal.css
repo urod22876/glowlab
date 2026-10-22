@@ -1,0 +1,15 @@
+
+/* ===== dark legal pages ===== */
+:root{color-scheme:dark}
+html{background:#0a0908!important}
+body{background:transparent!important;color:#cfc9bf!important}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(60vw 50vh at 90% -10%,rgba(232,163,61,.14),transparent 70%)}
+h1,h2,h3{font-family:'Manrope',system-ui,sans-serif!important;font-weight:800!important;letter-spacing:-.025em;color:#f3efe8!important}
+h2 i,h3 i{color:#e8a33d!important;font-style:normal}
+p,li,td{color:#cfc9bf!important}
+a{color:#f4c05a!important}
+.upd,small{color:#8d877d!important}
+a.si{background:linear-gradient(180deg,#f4c05a,#dc9a2e)!important;color:#1b1307!important;border:0!important}
+.brand{color:#f3efe8!important}.brand span{color:#e8a33d!important}
+aside a,.drawer a{color:#bdb6ab!important}aside a.on,.drawer a.on{color:#f4c05a!important}
+.back{color:#bdb6ab!important}

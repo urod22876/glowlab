@@ -1,0 +1,58 @@
+
+  /* ---------- face shape: what it means and what suits it (hair, beard, glasses) ---------- */
+  var SHAPE_DB = {
+    oval: { n: ['Oval', 'Овальная'], d: ['Length a bit more than width, forehead slightly wider than the jaw, soft jaw angles. The most balanced shape: most styles work.', 'Длина чуть больше ширины, лоб немного шире челюсти, мягкие углы. Самая сбалансированная форма: подходит почти всё.'],
+      hair: ['Almost any cut. Avoid heavy fringes that hide the forehead: they shorten the face.', 'Почти любая стрижка. Не закрывайте лоб тяжёлой чёлкой: она укорачивает лицо.'],
+      beard: ['Light stubble or a short boxed beard keeps the balance.', 'Лёгкая щетина или короткая аккуратная борода сохраняют баланс.'],
+      glasses: ['Most frames; slightly wider than the face at the cheekbones look best.', 'Подходит большинство оправ; лучше всего чуть шире лица на уровне скул.'] },
+    round: { n: ['Round', 'Круглая'], d: ['Width close to length, soft rounded jaw and full cheeks.', 'Ширина почти равна длине, мягкая округлая челюсть и полные щёки.'],
+      hair: ['Add height on top and keep the sides short or close to the head: it lengthens the face.', 'Объём сверху и короткие или прилегающие виски: так лицо вытягивается.'],
+      beard: ['Keep the sides short and let the chin be a little longer: it adds length and an angle.', 'Бока коротко, на подбородке чуть длиннее: это добавляет длину и угол.'],
+      glasses: ['Angular, rectangular frames; avoid small round ones.', 'Угловатые, прямоугольные оправы; избегайте маленьких круглых.'] },
+    square: { n: ['Square', 'Квадратная'], d: ['Wide, angular jaw about as wide as the forehead, strong straight lines.', 'Широкая угловатая челюсть почти как лоб, чёткие прямые линии.'],
+      hair: ['Some texture or length on top softens the corners; very short sides make the jaw look even wider.', 'Текстура или длина сверху смягчает углы; совсем короткие виски делают челюсть ещё шире.'],
+      beard: ['Short stubble shows the strong jaw; avoid a wide, boxy beard.', 'Короткая щетина подчёркивает сильную челюсть; избегайте широкой «квадратной» бороды.'],
+      glasses: ['Round or oval frames balance the angles.', 'Круглые или овальные оправы уравновешивают углы.'] },
+    rect: { n: ['Rectangular', 'Прямоугольная'], d: ['Long face with a wide, angular jaw.', 'Вытянутое лицо с широкой угловатой челюстью.'],
+      hair: ['Volume at the sides, not on top; a light fringe shortens the face.', 'Объём по бокам, а не сверху; лёгкая чёлка укорачивает лицо.'],
+      beard: ['Fuller at the sides, short at the chin.', 'Гуще по бокам, коротко на подбородке.'],
+      glasses: ['Deep frames with a strong top line; round or square shapes.', 'Высокие оправы с выразительной верхней линией; круглые или квадратные.'] },
+    long: { n: ['Long', 'Вытянутая'], d: ['Length clearly more than width, narrow jaw and cheeks.', 'Длина заметно больше ширины, узкие челюсть и скулы.'],
+      hair: ['Volume at the sides, a fringe or side part; avoid height on top.', 'Объём по бокам, чёлка или боковой пробор; избегайте объёма сверху.'],
+      beard: ['Fuller at the sides adds width; keep the chin short.', 'Борода гуще по бокам добавляет ширины; подбородок коротко.'],
+      glasses: ['Wide, deep frames; oversized styles suit well.', 'Широкие и высокие оправы; объёмные модели смотрятся хорошо.'] },
+    heart: { n: ['Heart', 'Сердце'], d: ['Wide forehead and cheekbones, narrow jaw and chin.', 'Широкий лоб и скулы, узкие челюсть и подбородок.'],
+      hair: ['Fringe or texture at the forehead and some volume lower down balance the narrow chin.', 'Чёлка или текстура у лба и объём ниже уравновешивают узкий подбородок.'],
+      beard: ['A fuller beard at the jaw and chin adds width to the lower face.', 'Борода гуще на челюсти и подбородке добавляет ширины низу лица.'],
+      glasses: ['Light, rimless or bottom-heavy frames; avoid heavy top lines.', 'Лёгкие, безободковые или с акцентом снизу; избегайте тяжёлой верхней линии.'] },
+    diamond: { n: ['Diamond', 'Ромб'], d: ['Cheekbones are the widest part, forehead and jaw narrower.', 'Скулы — самая широкая часть, лоб и челюсть уже.'],
+      hair: ['Fringe or volume at the forehead, fuller sides at the chin level.', 'Чёлка или объём у лба, больше объёма на уровне подбородка.'],
+      beard: ['Fuller at the chin and jaw balances the cheekbones.', 'Гуще на подбородке и челюсти — это уравновешивает скулы.'],
+      glasses: ['Oval or cat-eye frames, or frames with a strong top line.', 'Овальные, «кошачий глаз» или с выразительной верхней линией.'] }
+  };
+  var SIDE_WHY = { open: ['the eye looks more open', 'глаз выглядит более открытым'], tilt: ['the eye corner sits higher', 'уголок глаза выше'], mouth: ['the mouth corner sits higher', 'уголок губ выше'], brow: ['the brow is higher', 'бровь выше'] };
+  /* plain meaning of each measurement, shown next to the number */
+  var PLAIN = {
+    up: ['Forehead height: hairline to brows, as a share of face height.', 'Высота лба: от линии волос до бровей, доля от высоты лица.'],
+    mid: ['Middle third: brows to the base of the nose, as a share of face height.', 'Средняя треть: от бровей до основания носа, доля от высоты лица.'],
+    low: ['Lower third: base of the nose to the chin, as a share of face height.', 'Нижняя треть: от основания носа до подбородка, доля от высоты лица.'],
+    lip: ['Where the mouth line sits between nose and chin (share from the nose).', 'Где линия рта между носом и подбородком (доля от носа).'],
+    ratio: ['Face width divided by face height. Higher = wider face.', 'Ширина лица, делённая на высоту. Больше — лицо шире.'],
+    asym: ['How much the left and right sides differ. Lower is more symmetric.', 'Насколько отличаются левая и правая стороны. Меньше — симметричнее.'],
+    conv: ['Profile angle forehead–nose base–chin. 180° = straight profile.', 'Угол профиля лоб–основание носа–подбородок. 180° — прямой профиль.'],
+    nla: ['Angle between the nose and the upper lip.', 'Угол между носом и верхней губой.'],
+    nfa: ['Angle between the forehead and the nose.', 'Угол между лбом и носом.'],
+    eU: ['Upper lip relative to the nose–chin line. Minus = behind it.', 'Верхняя губа относительно линии нос–подбородок. Минус — позади неё.'],
+    eL: ['Lower lip relative to the nose–chin line. Minus = behind it.', 'Нижняя губа относительно линии нос–подбородок. Минус — позади неё.'],
+    tilt: ['Angle of the eye: plus = outer corners higher than inner ones.', 'Наклон глаз: плюс — внешние уголки выше внутренних.'],
+    eyesp: ['Gap between the eyes divided by one eye width. 1 = one eye fits between.', 'Расстояние между глазами, делённое на ширину глаза. 1 — между глазами помещается ещё один глаз.'],
+    esr: ['Distance between pupils as a share of face width.', 'Расстояние между зрачками, доля от ширины лица.'],
+    midf: ['Pupil distance divided by the height from the pupils to the upper lip. 1 = a square midface.', 'Расстояние между зрачками, делённое на высоту от зрачков до верхней губы. 1 — «квадратная» середина лица.'],
+    jaw: ['Jaw width as a share of cheekbone width.', 'Ширина челюсти, доля от ширины скул.'],
+    lowh: ['Nose base to chin as a share of the whole face height.', 'От основания носа до подбородка, доля от всей высоты лица.'],
+    chin: ['Chin height (lower lip to chin) as a share of the lower face.', 'Высота подбородка (от нижней губы до низа), доля от нижней части лица.'],
+    lipr: ['Upper lip height divided by lower lip height.', 'Высота верхней губы, делённая на высоту нижней.'],
+    symd: ['Average shift of paired points (eyes, brows, mouth) from the midline.', 'Среднее смещение парных точек (глаза, брови, рот) от средней линии.'],
+    nosew: ['Nose width divided by the gap between the eyes.', 'Ширина носа, делённая на расстояние между глазами.'],
+    eyeo: ['Eye height divided by eye width. Higher = more open eyes.', 'Высота глаза, делённая на ширину. Больше — глаза открытее.']
+  };
