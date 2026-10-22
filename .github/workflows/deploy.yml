@@ -20,8 +20,14 @@ jobs:
           node build/tests/pro_worker_test.mjs site/_worker.js
           node build/tests/stream_test.mjs site/_worker.js
       - name: Deploy
-        uses: cloudflare/wrangler-action@v3
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy site --project-name=glowlab --branch=main --commit-dirty=true
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          if [ -z "$CLOUDFLARE_API_TOKEN" ]; then echo "::error::Secret CLOUDFLARE_API_TOKEN is missing (Settings -> Secrets and variables -> Actions)"; exit 1; fi
+          if [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then echo "::error::Secret CLOUDFLARE_ACCOUNT_ID is missing (Settings -> Secrets and variables -> Actions)"; exit 1; fi
+          set -o pipefail
+          if ! npx --yes wrangler@4 pages deploy site --project-name=glowlab --branch=main --commit-dirty=true 2>&1 | tee wrangler.txt; then
+            grep -E "ERROR|✘|\[code|Authentication|not found|permission|Unauthorized|denied" wrangler.txt | head -8 | while IFS= read -r l; do echo "::error::$l"; done
+            exit 1
+          fi
