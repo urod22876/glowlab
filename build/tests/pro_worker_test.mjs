@@ -18,7 +18,7 @@ globalThis.fetch = async (url, init = {}) => {
   url = String(url); calls.push((init.method || 'GET') + ' ' + url);
   if (url.startsWith('https://glowlab-e39b2.firebaseapp.com/')) return new Response('firebase:' + new URL(url).pathname + new URL(url).search, { status: 200, headers: { 'x-test': '1' } });
   if (url.startsWith('https://www.googleapis.com/')) return new Response(JSON.stringify({ keys: [Object.assign({ kid: 'k1', alg: 'RS256', use: 'sig' }, pub)] }), { headers: { 'cache-control': 'public, max-age=20000' } });
-  if (url.startsWith('https://api.anthropic.com/')) { const b = JSON.parse(init.body); return Response.json({ content: [{ type: 'text', text: (b.system.startsWith('You are "Glow Lab Assistant", a friendly') ? 'GENERAL' : 'SITE') + ':' + b.max_tokens + ':' + b.messages.length }] }); }
+  if (url.startsWith('https://api.anthropic.com/')) { const b = JSON.parse(init.body); return Response.json({ content: [{ type: 'text', text: (/^You are "Glow ?Lab Assistant", a friendly/.test(b.system) ? 'GENERAL' : 'SITE') + ':' + b.max_tokens + ':' + b.messages.length }] }); }
   if (url.startsWith('https://generativelanguage.googleapis.com/')) {
     const k = init.headers['x-goog-api-key'];
     if (k === 'BAD') return new Response(JSON.stringify({ error: { message: 'API key not valid. Please pass a valid API key.' } }), { status: 400 });
