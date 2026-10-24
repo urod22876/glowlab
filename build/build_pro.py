@@ -125,6 +125,13 @@ s = one(s, "    hooks.push(function () { paint(); if (open) render(); });\n    p
 s = one(s, "authDomain: 'glowlab-e39b2.firebaseapp.com'", "authDomain: (window.GL_AUTH_SELF && /(^|\\.)glow-lub\\.com$/.test(location.hostname)) ? location.hostname : 'glowlab-e39b2.firebaseapp.com'")
 s = one(s, "return t(m[c] || 'au_e_gen');", "return t(m[c] || 'au_e_gen') + (!m[c] && c ? ' (' + c + ')' : '');")
 s = one(s, "        fb = window.firebase.auth(app);", "        fb = window.firebase.auth(app);\n        try { fb.getRedirectResult().catch(function (e) { setTimeout(function () { try { var em = authErr(e); if (em) toast(em, 'bad', 12000); } catch (x) {} }, 800); }); } catch (e) {}")
+# short landing (design system, option B): chip + shimmer headline, scan CTA, one trust line; extra landing blocks hidden by CSS
+s = one(s, '    <h1 data-i18n="hero_h1"></h1>\n    <p class="sub" data-i18n="hero_p"></p>',
+           '    <span class="hchip"><i></i><span data-i18n="land_chip"></span></span>\n    <h1 data-i18n-html="hero_h1h"></h1>\n    <p class="sub" data-i18n="hero_p"></p>')
+s = one(s, '      <span data-i18n="trust1"></span><span data-i18n="trust2"></span><span data-i18n="trust3"></span>',
+           '      <span data-i18n="trust_line"></span>')
+# result window: category bars under the scores
+s = one(s, "rmBrand(box); rmFit(m, box);", "rmBrand(box); rmBars(box, c); rmFit(m, box);")
 # styles
 if s.count('</style>') != 1: raise SystemExit('expected one <style> block')
 s = s.replace('</style>', rd('pro.css') + '</style>', 1)

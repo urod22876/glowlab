@@ -2053,6 +2053,38 @@ details.fx[open]>summary::after{transform:rotate(-135deg)}
 @keyframes rmText{0%{background-position:100% 0}100%{background-position:-50% 0}}
 @media (max-width:520px){.rm-brand{bottom:-17px;padding:8px 18px 8px 12px;gap:7px}.rm-brand b{font-size:18px}.rm-spark{width:16px;height:16px}}
 @media (prefers-reduced-motion:reduce){.rm-brand{transition:none;transform:translateX(-50%);opacity:1}.rm-brand::before,.rm-spark,.rm-brand b{animation:none}}
+/* ---------- short landing (design system, option B) ---------- */
+html[data-view="landing"] .hv-info,html[data-view="landing"] .why,html[data-view="landing"] #pillars,html[data-view="landing"] #plan,html[data-view="landing"] #proj,html[data-view="landing"] .nav a[href="#plan"]{display:none!important}
+/* chip above the headline */
+.hchip{align-self:flex-start;display:inline-flex;align-items:center;gap:8px;padding:7px 14px 7px 12px;margin-bottom:18px;border-radius:999px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);font:700 12.5px/1 var(--font-display);letter-spacing:.02em;color:#e6e6e6}
+.hchip i{width:7px;height:7px;border-radius:50%;background:#fff;box-shadow:0 0 10px rgba(255,255,255,.9);animation:hcPulse 2.4s ease-in-out infinite}
+html.js .hero.vland .hero-txt>.hchip{animation:heroIn .9s cubic-bezier(.2,.7,.2,1) both}
+@keyframes hcPulse{50%{opacity:.35;box-shadow:0 0 2px rgba(255,255,255,.4)}}
+/* shimmer word in the headline */
+.hero .shim{background:linear-gradient(100deg,#fff 0%,#fff 38%,#8f8f8f 50%,#fff 62%,#fff 100%);background-size:250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:rmText 3.5s ease-in-out infinite}
+/* one short trust line */
+.hero.hv .trust{flex-direction:row!important;gap:0!important}
+.hero.hv .trust span{font-size:13px;line-height:1.5}
+.hero.hv .trust span::before{display:none!important}
+/* scan icon in the main buttons */
+a.btn[data-signup]::before{content:"";display:inline-block;width:18px;height:18px;margin-right:9px;vertical-align:-3px;flex:none;background:currentColor;-webkit-mask:var(--scan-ic) center/contain no-repeat;mask:var(--scan-ic) center/contain no-repeat}
+:root{--scan-ic:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M3 8V5a2 2 0 0 1 2-2h3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3'/%3E%3Ccircle cx='12' cy='12' r='3' fill='%23000' stroke='none'/%3E%3C/svg%3E")}
+.hero.hv .btn.big{box-shadow:0 0 0 1px rgba(255,255,255,.25),0 10px 40px -8px rgba(255,255,255,.45)}
+/* pricing: Pro first */
+.plans .plan.best{order:-1}
+/* background: soft white glow in the corners + light film grain */
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(60vw 50vh at 92% -8%,rgba(255,255,255,.07),transparent 70%),radial-gradient(50vw 60vh at -12% 55%,rgba(255,255,255,.035),transparent 70%)}
+body::after{content:"";position:fixed;inset:-50%;z-index:2147483000;pointer-events:none;opacity:.06;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+/* result window: category bars */
+.rm-bars{list-style:none;margin:2px 0 4px;padding:0;width:100%;display:flex;flex-direction:column;gap:11px}
+.rm-bars li{display:flex;flex-direction:column;gap:6px;opacity:0;transform:translateY(8px);transition:opacity .5s ease var(--d,1.5s),transform .5s cubic-bezier(.2,.8,.2,1) var(--d,1.5s)}
+.rm-card.play .rm-bars li,.rm-card.done .rm-bars li{opacity:1;transform:none}
+.rm-bars .rb-h{display:flex;justify-content:space-between;align-items:baseline;font-size:13.5px}
+.rm-bars .rb-h b{font-weight:600;color:#e9e9e9}.rm-bars .rb-h span{font-variant-numeric:tabular-nums;color:#bdbdbd;font-weight:700}
+.rm-bars i{display:block;height:5px;border-radius:5px;background:rgba(255,255,255,.08);overflow:hidden}
+.rm-bars u{display:block;height:100%;width:0;border-radius:inherit;background:linear-gradient(90deg,#9a9a9a,#fff);box-shadow:0 0 10px rgba(255,255,255,.35);transition:width 1.2s cubic-bezier(.2,.8,.2,1) calc(var(--d,1.5s) + .15s)}
+.rm-card.play .rm-bars u,.rm-card.done .rm-bars u{width:var(--w)}
+@media (prefers-reduced-motion:reduce){.hchip i,.hero .shim{animation:none}.rm-bars li,.rm-bars u{transition:none}}
 </style>
 <script>(function(){var v="landing";try{if(localStorage.getItem("gl_user")||(localStorage.getItem("gl_dev")==="1"&&(location.protocol==="file:"||/^(localhost|127\.)/.test(location.hostname))))v="app"}catch(e){}document.documentElement.setAttribute("data-view",v);document.documentElement.className+=" js";
 try{history.scrollRestoration="manual"}catch(e){}
@@ -2105,14 +2137,15 @@ var mv=function(){window.__moved=1};["wheel","touchmove","keydown","mousedown"].
   <section class="hero hv vland" id="hv">
     <div class="hero-txt">
     <div class="live" id="live" hidden><span class="dot"></span><span id="liveTxt"></span></div>
-    <h1 data-i18n="hero_h1"></h1>
+    <span class="hchip"><i></i><span data-i18n="land_chip"></span></span>
+    <h1 data-i18n-html="hero_h1h"></h1>
     <p class="sub" data-i18n="hero_p"></p>
     <div class="cta-row">
       <a class="btn big" data-signup href="#demo"></a>
       <a class="link-quiet" href="#how" data-i18n="hero_how"></a>
     </div>
     <div class="trust">
-      <span data-i18n="trust1"></span><span data-i18n="trust2"></span><span data-i18n="trust3"></span>
+      <span data-i18n="trust_line"></span>
     </div>
     <p class="age-fine" data-i18n-html="age_fine"></p>
     <p class="legal" data-i18n="legal"></p>
@@ -4647,7 +4680,7 @@ var GLOW_MP={wasm:"H4sIAJ6g02oC/+y7CVgUSdYompmVRRUFikAvyMxtp6d7tBucnndf4/83VF+gK
       var src = c.querySelector('canvas'), dst = cl.querySelector('canvas'); try { dst.getContext('2d').drawImage(src, 0, 0); } catch (e) {}
       var ph = cl.querySelector('.pc-ph'); if (ph) { ph.insertBefore(h('b', 'rm-ring r0', null, ph), ph.firstChild); h('b', 'rm-ring r1', null, ph); h('b', 'rm-ring r2', null, ph); h('b', 'rm-ring r3', null, ph); }
       var more = cl.querySelector('.pc-more'); if (more) { more.textContent = t('pc_more'); more.addEventListener('click', function () { close(true); }); }
-      document.body.appendChild(m); document.body.classList.add('rm-open'); rmBrand(box); rmFit(m, box);
+      document.body.appendChild(m); document.body.classList.add('rm-open'); rmBrand(box); rmBars(box, c); rmFit(m, box);
       requestAnimationFrame(function () { m.classList.add('on'); setTimeout(function () { pcPlay(cl); }, 350); });
       function close(go) {
         m.classList.remove('on'); m.classList.add('off'); document.body.classList.remove('rm-open'); document.removeEventListener('keydown', esc);
@@ -5425,6 +5458,21 @@ var GLOW_MP={wasm:"H4sIAJ6g02oC/+y7CVgUSdYompmVRRUFikAvyMxtp6d7tBucnndf4/83VF+gK
     set_ph: 'Фото до/после', set_ph_d: 'Маленькие копии фото, только на этом устройстве', set_ph_keep: 'Сохранять фото для сравнения', set_ph_del: 'Удалить сохранённые фото',
     set_data: 'Мои данные', set_data_d: 'Скачать всё, что сохранено в аккаунте, или очистить историю сканов', set_export: 'Скачать мои данные', set_hist_del: 'Очистить историю сканов', set_done: 'Готово',
     pr_norm: 'Обычно: {r}.', mx_adv: 'Технические замеры ({n}) — для продвинутых', mx_adv_d: 'Все исходные отношения и углы по сетке из 478 точек. Для понимания результата они не нужны.'
+  });
+  /* short landing (design system): chip, shimmer headline, one-line sub, scan CTA, one trust line */
+  Object.assign(I18N.en, {
+    land_chip: 'AI face analysis',
+    hero_h1h: 'Know your face. <span class="shim">Glow up</span> with a plan.',
+    hero_p: 'Front + side photo. Your PSL score, your potential and the exact steps to get there.',
+    cta_try: 'Scan your face',
+    trust_line: 'First scan free · no card · photos stay on your device'
+  });
+  Object.assign(I18N.ru, {
+    land_chip: 'ИИ-анализ лица',
+    hero_h1h: 'Узнайте своё лицо. <span class="shim">Улучшайте</span> по плану.',
+    hero_p: 'Фото анфас и в профиль. Ваш PSL, потенциал и точные шаги, как к нему прийти.',
+    cta_try: 'Сканировать лицо',
+    trust_line: 'Первый скан бесплатно · без карты · фото остаются на телефоне'
   });
   Object.assign(PLU.en, { ctx_areas: 'Your scan flagged: {a}. Your personal plan above shows what to do.' });
   Object.assign(PLU.ru, { ctx_areas: 'В скане отмечено: {a}. Что с этим делать — в личном плане выше.' });
@@ -6316,6 +6364,34 @@ var GLOW_MP={wasm:"H4sIAJ6g02oC/+y7CVgUSdYompmVRRUFikAvyMxtp6d7tBucnndf4/83VF+gK
     var w = document.createElement('b'); w.setAttribute('aria-hidden', 'true');
     w.innerHTML = 'Glow<span>Lab</span>';
     b.appendChild(w); ph.appendChild(b);
+  }
+
+  /* ---------- result window: category bars (eyes, jaw, harmony...) under the scores, read from this scan's breakdown ---------- */
+  function rmBars(box, c) {
+    var card = box.querySelector('.rm-card'), res = c && c.closest ? c.closest('.results') : null;
+    if (!card || !res) return;
+    var tries = 0;
+    (function fill() {
+      var li = [].slice.call(res.querySelectorAll('.rt-bars li'));
+      if (!li.length) { if (++tries < 8) setTimeout(fill, 150); return; }
+      if (card.querySelector('.rm-bars')) return;
+      var ul = document.createElement('ul'); ul.className = 'rm-bars';
+      li.slice(0, 4).forEach(function (r, i) {
+        var n = r.querySelector('.bh b'), v = r.querySelector('.bh span');
+        if (!n || !v) return;
+        var sc = Math.max(0, Math.min(100, parseFloat(v.textContent) || 0));
+        var row = document.createElement('li'); row.style.setProperty('--d', (1.5 + i * 0.12) + 's');
+        var hd = document.createElement('div'); hd.className = 'rb-h';
+        var b = document.createElement('b'); b.textContent = n.textContent; hd.appendChild(b);
+        var s = document.createElement('span'); s.textContent = fmt(sc / 10, 1); hd.appendChild(s);
+        var bar = document.createElement('i'), u = document.createElement('u'); u.style.setProperty('--w', sc + '%'); bar.appendChild(u);
+        row.appendChild(hd); row.appendChild(bar); ul.appendChild(row);
+      });
+      if (!ul.children.length) return;
+      var more = card.querySelector('.pc-more');
+      if (more) card.insertBefore(ul, more); else card.appendChild(ul);
+      window.dispatchEvent(new Event('resize')); /* the window re-fits to the screen */
+    })();
   }
 
   /* ---------- assistant: signed-in users get the general assistant (the server checks the sign-in) ---------- */

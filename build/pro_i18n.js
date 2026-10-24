@@ -146,5 +146,20 @@
     set_data: 'Мои данные', set_data_d: 'Скачать всё, что сохранено в аккаунте, или очистить историю сканов', set_export: 'Скачать мои данные', set_hist_del: 'Очистить историю сканов', set_done: 'Готово',
     pr_norm: 'Обычно: {r}.', mx_adv: 'Технические замеры ({n}) — для продвинутых', mx_adv_d: 'Все исходные отношения и углы по сетке из 478 точек. Для понимания результата они не нужны.'
   });
+  /* short landing (design system): chip, shimmer headline, one-line sub, scan CTA, one trust line */
+  Object.assign(I18N.en, {
+    land_chip: 'AI face analysis',
+    hero_h1h: 'Know your face. <span class="shim">Glow up</span> with a plan.',
+    hero_p: 'Front + side photo. Your PSL score, your potential and the exact steps to get there.',
+    cta_try: 'Scan your face',
+    trust_line: 'First scan free · no card · photos stay on your device'
+  });
+  Object.assign(I18N.ru, {
+    land_chip: 'ИИ-анализ лица',
+    hero_h1h: 'Узнайте своё лицо. <span class="shim">Улучшайте</span> по плану.',
+    hero_p: 'Фото анфас и в профиль. Ваш PSL, потенциал и точные шаги, как к нему прийти.',
+    cta_try: 'Сканировать лицо',
+    trust_line: 'Первый скан бесплатно · без карты · фото остаются на телефоне'
+  });
   Object.assign(PLU.en, { ctx_areas: 'Your scan flagged: {a}. Your personal plan above shows what to do.' });
   Object.assign(PLU.ru, { ctx_areas: 'В скане отмечено: {a}. Что с этим делать — в личном плане выше.' });

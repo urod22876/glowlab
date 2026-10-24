@@ -151,6 +151,34 @@
     b.appendChild(w); ph.appendChild(b);
   }
 
+  /* ---------- result window: category bars (eyes, jaw, harmony...) under the scores, read from this scan's breakdown ---------- */
+  function rmBars(box, c) {
+    var card = box.querySelector('.rm-card'), res = c && c.closest ? c.closest('.results') : null;
+    if (!card || !res) return;
+    var tries = 0;
+    (function fill() {
+      var li = [].slice.call(res.querySelectorAll('.rt-bars li'));
+      if (!li.length) { if (++tries < 8) setTimeout(fill, 150); return; }
+      if (card.querySelector('.rm-bars')) return;
+      var ul = document.createElement('ul'); ul.className = 'rm-bars';
+      li.slice(0, 4).forEach(function (r, i) {
+        var n = r.querySelector('.bh b'), v = r.querySelector('.bh span');
+        if (!n || !v) return;
+        var sc = Math.max(0, Math.min(100, parseFloat(v.textContent) || 0));
+        var row = document.createElement('li'); row.style.setProperty('--d', (1.5 + i * 0.12) + 's');
+        var hd = document.createElement('div'); hd.className = 'rb-h';
+        var b = document.createElement('b'); b.textContent = n.textContent; hd.appendChild(b);
+        var s = document.createElement('span'); s.textContent = fmt(sc / 10, 1); hd.appendChild(s);
+        var bar = document.createElement('i'), u = document.createElement('u'); u.style.setProperty('--w', sc + '%'); bar.appendChild(u);
+        row.appendChild(hd); row.appendChild(bar); ul.appendChild(row);
+      });
+      if (!ul.children.length) return;
+      var more = card.querySelector('.pc-more');
+      if (more) card.insertBefore(ul, more); else card.appendChild(ul);
+      window.dispatchEvent(new Event('resize')); /* the window re-fits to the screen */
+    })();
+  }
+
   /* ---------- assistant: signed-in users get the general assistant (the server checks the sign-in) ---------- */
   /* Pro: the assistant gets a short summary of the latest scan, so it can answer about this face */
   function asCtx() {
