@@ -2039,6 +2039,15 @@ details.fx[open]>summary::after{transform:rotate(-135deg)}
 .ch-r{display:grid;grid-template-columns:1fr auto;gap:2px 10px;padding:8px 0;border-top:1px solid rgba(255,255,255,.06);font-size:13px}
 .ch-r b{color:#f0f0f0}.ch-r span{font-variant-numeric:tabular-nums;color:#cfcfcf;text-align:right}.ch-r em{grid-column:1/-1;font-style:normal;font-size:12px;color:#9a9a9a}
 .ch-r.up em{color:#fff}.ch-r.up em::before{content:"↑ "}.ch-r.dn em::before{content:"↓ "}
+/* result window: GlowLab name badge on the photo ring */
+.rm-card .pc-ph{margin-bottom:12px}
+.rm-brand{position:absolute;left:50%;bottom:-17px;z-index:4;display:inline-flex;align-items:center;gap:0;padding:8px 20px;border-radius:999px;white-space:nowrap;pointer-events:none;background:linear-gradient(180deg,rgba(34,34,34,.96),rgba(8,8,8,.96));border:1px solid rgba(255,255,255,.26);box-shadow:0 10px 26px -6px rgba(0,0,0,.85),0 0 22px rgba(255,255,255,.10),inset 0 1px 0 rgba(255,255,255,.16);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);transform:translateX(-50%) scale(.6);opacity:0;transition:transform .55s cubic-bezier(.2,1.4,.3,1) .7s,opacity .4s ease .7s;overflow:hidden}
+.rm-card.play .rm-brand,.rm-card.done .rm-brand{transform:translateX(-50%);opacity:1}
+.rm-brand b{font:800 19px/1 var(--font-display);letter-spacing:-.02em;color:#fff}
+.rm-brand b span{background:linear-gradient(180deg,#ffffff 0%,#cfcfcf 45%,#8e8e8e 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.rm-brand::after{content:"";position:absolute;top:0;bottom:0;left:-70%;width:45%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.28),transparent);animation:rmShine 3.2s ease-in-out 1.6s infinite}
+@media (max-width:520px){.rm-brand{bottom:-15px;padding:7px 17px}.rm-brand b{font-size:17px}}
+@media (prefers-reduced-motion:reduce){.rm-brand{transition:none;transform:translateX(-50%);opacity:1}.rm-brand::after{animation:none}}
 </style>
 <script>(function(){var v="landing";try{if(localStorage.getItem("gl_user")||(localStorage.getItem("gl_dev")==="1"&&(location.protocol==="file:"||/^(localhost|127\.)/.test(location.hostname))))v="app"}catch(e){}document.documentElement.setAttribute("data-view",v);document.documentElement.className+=" js";
 try{history.scrollRestoration="manual"}catch(e){}
@@ -4633,7 +4642,7 @@ var GLOW_MP={wasm:"H4sIAJ6g02oC/+y7CVgUSdYompmVRRUFikAvyMxtp6d7tBucnndf4/83VF+gK
       var src = c.querySelector('canvas'), dst = cl.querySelector('canvas'); try { dst.getContext('2d').drawImage(src, 0, 0); } catch (e) {}
       var ph = cl.querySelector('.pc-ph'); if (ph) { ph.insertBefore(h('b', 'rm-ring r0', null, ph), ph.firstChild); h('b', 'rm-ring r1', null, ph); h('b', 'rm-ring r2', null, ph); h('b', 'rm-ring r3', null, ph); }
       var more = cl.querySelector('.pc-more'); if (more) { more.textContent = t('pc_more'); more.addEventListener('click', function () { close(true); }); }
-      document.body.appendChild(m); document.body.classList.add('rm-open'); rmFit(m, box);
+      document.body.appendChild(m); document.body.classList.add('rm-open'); rmBrand(box); rmFit(m, box);
       requestAnimationFrame(function () { m.classList.add('on'); setTimeout(function () { pcPlay(cl); }, 350); });
       function close(go) {
         m.classList.remove('on'); m.classList.add('off'); document.body.classList.remove('rm-open'); document.removeEventListener('keydown', esc);
@@ -6289,6 +6298,16 @@ var GLOW_MP={wasm:"H4sIAJ6g02oC/+y7CVgUSdYompmVRRUFikAvyMxtp6d7tBucnndf4/83VF+gK
     m.addEventListener('touchmove', stop, { passive: false });
     var mo = new MutationObserver(function () { if (!m.isConnected) { window.removeEventListener('resize', fit); mo.disconnect(); } });
     mo.observe(document.body, { childList: true });
+  }
+
+  /* ---------- result window: GlowLab name badge under the photo (visible in screen recordings / ads) ---------- */
+  function rmBrand(box) {
+    var ph = box.querySelector('.rm-card .pc-ph');
+    if (!ph || ph.querySelector('.rm-brand')) return;
+    var b = document.createElement('span'); b.className = 'rm-brand'; b.setAttribute('aria-label', 'GlowLab');
+    var w = document.createElement('b'); w.setAttribute('aria-hidden', 'true');
+    w.innerHTML = 'Glow<span>Lab</span>';
+    b.appendChild(w); ph.appendChild(b);
   }
 
   /* ---------- assistant: signed-in users get the general assistant (the server checks the sign-in) ---------- */

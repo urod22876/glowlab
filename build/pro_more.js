@@ -138,6 +138,16 @@
     mo.observe(document.body, { childList: true });
   }
 
+  /* ---------- result window: GlowLab name badge under the photo (visible in screen recordings / ads) ---------- */
+  function rmBrand(box) {
+    var ph = box.querySelector('.rm-card .pc-ph');
+    if (!ph || ph.querySelector('.rm-brand')) return;
+    var b = document.createElement('span'); b.className = 'rm-brand'; b.setAttribute('aria-label', 'GlowLab');
+    var w = document.createElement('b'); w.setAttribute('aria-hidden', 'true');
+    w.innerHTML = 'Glow<span>Lab</span>';
+    b.appendChild(w); ph.appendChild(b);
+  }
+
   /* ---------- assistant: signed-in users get the general assistant (the server checks the sign-in) ---------- */
   /* Pro: the assistant gets a short summary of the latest scan, so it can answer about this face */
   function asCtx() {

@@ -92,7 +92,7 @@ s = one(s, "      mxDrawOv(mxShowSec, d);\n    }\n    hooks.push(function () { i
            "      mxDrawOv(mxShowSec, d);\n      mxFold(box, d.secs.reduce(function (n, x) { return n + x.items.length; }, 0));\n    }\n    hooks.push(function () { if (!PRO)")
 s = one(s, "var box = $('.mx', side); if (!box) return;\n      var al = $('.lk-all', side);", "var box = $('.mx', side); if (!box) return; box.classList.remove('mx-fold', 'open');\n      var al = $('.lk-all', side);")
 # result window fits the screen and does not scroll
-s = one(s, "document.body.appendChild(m); document.body.classList.add('rm-open');", "document.body.appendChild(m); document.body.classList.add('rm-open'); rmFit(m, box);")
+s = one(s, "document.body.appendChild(m); document.body.classList.add('rm-open');", "document.body.appendChild(m); document.body.classList.add('rm-open'); rmBrand(box); rmFit(m, box);")
 # avatar saved in the account
 s = one(s, "shrinkImage(f, 256).then(function (d) { lsSet('gl_av_' + uid, d);", "shrinkImage(f, 256).then(function (d) { lsSet('gl_av_' + uid, d); Cloud.push(uid, { av: d });")
 s = one(s, "rm.addEventListener('click', function () { lsSet('gl_av_' + uid, null);", "rm.addEventListener('click', function () { lsSet('gl_av_' + uid, null); Cloud.push(uid, { av: '' });")
